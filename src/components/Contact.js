@@ -1,7 +1,9 @@
-// Import Dependencies
-import React from "react";
+// Import dependencies
 
-// Create Contact Component
+import React from "react";
+import Rainbow from "../hoc/Rainbow";
+
+// Create Contact component
 const Contact = () => {
   return (
     <div>
@@ -18,4 +20,5 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+// export Contact as wrapped component
+export default Rainbow(Contact);

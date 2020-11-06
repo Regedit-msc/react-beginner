@@ -1,22 +1,58 @@
 // Import react
 
-import React from "react";
+import React, { Component } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 // Create the component
-const Home = () => {
-  return (
-    <div>
-      <div className="container">
-        <h4 className="center">Home</h4>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
-          repudiandae repellat illo magni eligendi cupiditate voluptates eius
-          nam voluptate. Incidunt nihil ullam quae quia officia quaerat,
-          deserunt eligendi explicabo totam?
-        </p>
-      </div>
-    </div>
-  );
-};
+class Home extends Component {
+  // State for saving posts
+  state = {
+    posts: [],
+  };
 
+  // When components mounts make a call to the jsonplaceholder api and then
+  // set state to contain only 10 posts from the request
+  componentDidMount() {
+    axios.get("https://jsonplaceholder.typicode.com/posts").then((res) => {
+      this.setState({
+        posts: res.data.slice(0, 10),
+      });
+    });
+  }
+
+  // Render all posts from state
+  render() {
+    /* Set 'posts' to equal present state   */
+    const { posts } = this.state;
+    const postList = posts.length ? (
+      posts.map((post) => {
+        return (
+          <div className="post card" key={post.id}>
+            <div className="card-content">
+              <Link to={"/" + post.id}>
+                <span className="card-title">{post.title}</span>
+              </Link>
+              <p>{post.body}</p>
+            </div>
+          </div>
+        );
+      })
+    ) : (
+      <div className="center">
+        <p>No posts yet!</p>
+      </div>
+    );
+    return (
+      <div>
+        <div className="container">
+          <h4 className="center">Home</h4>
+          {postList}
+        </div>
+      </div>
+    );
+  }
+}
+
+// export home component
 export default Home;

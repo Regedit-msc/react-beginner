@@ -1,6 +1,7 @@
 // Import React
 
 import React from "react";
+import Rainbow from "../hoc/Rainbow";
 
 // Create About Component
 const About = () => {
@@ -19,4 +20,5 @@ const About = () => {
   );
 };
 
-export default About;
+// Export About as WrappedComponent
+export default Rainbow(About);
